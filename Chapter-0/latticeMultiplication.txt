@@ -1,0 +1,12 @@
+Problem's description:
+-We have 2 arrays of numbers: X[01...m-1] and Y[01...n-1]
+-We want to multiply x and y, where x = X[m - 1] * 10^(m - 1) + ... + X[0] and y = Y[n - 1] * 10^[n - 1] + ... + Y[0]
+
+Strategy:
+-Note that x has m digits and y has n digits, so xy has m + n - 1 digits or m + n digits. As a result, we want to store the result of xy in an array Z of size m + n. (Z[01...m+n-1])
+-We want z = Z[0] * 10^0 + Z[1] * 10^1 + ... + Z[m + n - 1] * 10^(m + n - 1) = xy. By polynomial multiplication, we know that xy = \sum_{0 <= i <= m - 1, 0 <= j <= n - 1}X[i]Y[j]10^(i + j), so the terms that contribute to form the number Z[t] are X[i]Y[j] with i + j = t. Also, we want to add the carry from previous calculations of Z[t - 1] as well. I'll explain what this means later.
+-Now, the strategy for obtaining each digit is done like this:
+1) First of all, we let carry be a variable which denotes the carry from 10^j to 10^(j + 1). Initially, carry = 0.
+2) Now, for i + j = 0 to i + j = m + n - 2, we add the total sum of X[i]Y[j], and we add carry to this total sum. Let Z[i + j] = sum % 10, and let carry = (total_sum - Z[i + j]) / 10.
+3) In the last step, we let Z[m + n - 1] = carry.
+4) Return Z as the result of our function, and we are done.
