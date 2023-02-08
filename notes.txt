@@ -1,0 +1,1 @@
+-An algorithm is an explicit, precise, unambiguous, mechanically-executable sequence of instructions to accomplish a specific purpose.
